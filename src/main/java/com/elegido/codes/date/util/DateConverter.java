@@ -1,9 +1,11 @@
 package com.elegido.codes.date.util;
 
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Utility class providing methods for date and time calculations.
@@ -30,6 +32,11 @@ public class DateConverter {
             "HH:mm:ss",
             "HH:mm:ss.SSSSSS"
     };
+
+    public static void main(String[] args) {
+        System.out.println(changeDateFormat("1999-09-14", "yyyy-MM-dd", "es", "ES"));
+        System.out.println();
+    }
 
     /**
      * Utility method to extract the number of hours from a given Date object.
@@ -202,6 +209,42 @@ public class DateConverter {
         long date1Hours = fromDate.getTime();
         long date2Hours = toDate.getTime();
         return (Math.abs(date1Hours - date2Hours) / (60 * 60 * 1000));
+    }
+
+    public static String changeDateFormat(String date, String inputFormat, String language, String region) {
+        SimpleDateFormat inputDateFormat = new SimpleDateFormat(inputFormat, Locale.getDefault());
+        Date dateObject = null;
+        try {
+            dateObject = inputDateFormat.parse(date);
+        } catch (ParseException e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+        Locale loc = new Locale.Builder().setLanguage(language).setRegion(region).build();
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL, loc);
+        return dateObject != null ? dateFormat.format(dateObject) : dateFormat.format(new Date());
+    }
+
+    public static String changeDateFormat(Date date, String language, String region) {
+        Locale loc = new Locale.Builder().setLanguage(language).setRegion(region).build();
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.FULL, loc);
+        return dateFormat.format(date);
+    }
+
+    public static String changeDateFormat(String date, String inputFormat, int style, Locale locale) {
+        SimpleDateFormat inputDateFormat = new SimpleDateFormat(inputFormat, Locale.getDefault());
+        Date dateObject = null;
+        try {
+            dateObject = inputDateFormat.parse(date);
+        } catch (ParseException e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+        DateFormat dateFormat = DateFormat.getDateInstance(style, locale);
+        return dateObject != null ? dateFormat.format(dateObject) : dateFormat.format(new Date());
+    }
+
+    public static String changeDateFormat(Date date, int style, Locale locale) {
+        DateFormat dateFormat = DateFormat.getDateInstance(style, locale);
+        return dateFormat.format(dateFormat);
     }
 
 }
