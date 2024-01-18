@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"com.elegido.codes.date.util","l":"DateConverter"},{"p":"com.elegido.codes.date.util","l":"DateConverter.Format"}];updateSearchResults();
